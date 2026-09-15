@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIMI.EXE</title>
+
+   <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at center, #292b45 0%, #11121a 70%);
+        color: white;
+        font-family: Arial, sans-serif;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px;
+
+        overflow: hidden;
+    }
+
+    #game {
+        width: 100%;
+        max-width: 600px;
+        min-height: 500px;
+
+        background: rgba(20, 21, 32, 0.92);
+
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 22px;
+
+        padding: 35px;
+
+        text-align: center;
+
+        box-shadow:
+            0 0 40px rgba(120, 110, 255, 0.15),
+            inset 0 0 30px rgba(255, 255, 255, 0.02);
+
+        animation: appear 1s ease;
+    }
+
+    h1 {
+        font-size: clamp(2.8rem, 10vw, 4.5rem);
+
+        margin: 20px 0 5px;
+
+        letter-spacing: 6px;
+
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.5),
+            0 0 30px rgba(130, 120, 255, 0.6);
+
+        animation: glow 2.5s infinite alternate;
+    }
+
+    #subtitle {
+        color: #aaa;
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+        margin-bottom: 45px;
+    }
+
+    #scene {
+        min-height: 230px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #emoji {
+        font-size: 80px;
+        margin-bottom: 20px;
+
+        filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+
+        animation: float 3s ease-in-out infinite;
+    }
+
+    #text {
+        font-size: 1.08rem;
+        line-height: 1.7;
+        max-width: 500px;
+    }
+
+    button {
+        border: 1px solid rgba(255,255,255,0.2);
+
+        border-radius: 14px;
+
+        padding: 14px 28px;
+
+        margin: 8px;
+
+        font-size: 1rem;
+
+        cursor: pointer;
+
+        color: white;
+
+        background:
+            linear-gradient(
+                135deg,
+                #5865f2,
+                #7658f2
+            );
+
+        box-shadow:
+            0 5px 20px rgba(88, 101, 242, 0.3);
+
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s,
+            filter 0.2s;
+    }
+
+    button:hover {
+        transform: translateY(-3px) scale(1.04);
+
+        box-shadow:
+            0 8px 25px rgba(88, 101, 242, 0.5);
+
+        filter: brightness(1.1);
+    }
+
+    button:active {
+        transform: scale(0.96);
+    }
+
+    #choices {
+        margin-top: 25px;
+    }
+
+    #progress {
+        color: #777;
+
+        font-size: 0.8rem;
+
+        margin-top: 30px;
+
+        letter-spacing: 1px;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes glow {
+        from {
+            text-shadow:
+                0 0 10px rgba(255,255,255,0.4);
+        }
+
+        to {
+            text-shadow:
+                0 0 10px rgba(255,255,255,0.6),
+                0 0 35px rgba(130,120,255,0.8);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-8px);
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        #game {
+            padding: 25px 18px;
+            min-height: 480px;
+        }
+
+        h1 {
+            letter-spacing: 4px;
+        }
+
+        #text {
+            font-size: 1rem;
+        }
+
+        button {
+            width: 80%;
+        }
+    }
+#emoji img {
+    width: 180px;
+    height: auto;
+
+    max-width: 70vw;
+    max-height: 220px;
+
+    object-fit: contain;
+
+    display: block;
+    margin: 0 auto;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 15px rgba(70, 120, 255, 0.6),
+        0 0 40px rgba(70, 120, 255, 0.35);
+
+    animation: flowerReveal 0.8s ease-out;
+}
+
+@keyframes flowerReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+        <h1>For Mrs. Cupcake 💙</h1>
+
+    <div id="scene">
+
+        <div id="emoji">💌</div>
+
+        <div id="text">
+            <b>Hey...</b>
+
+            <br><br>
+
+            I'm sorry I'm late with this. 😭
+
+            <br><br>
+
+            I was way too busy working on the bot,
+            and honestly I was really tired too.
+
+            <br><br>
+
+            I know I probably should've done this sooner,
+            but I still wanted to make something for you.
+
+            <br><br>
+
+            So I made this little gift instead.
+
+            <br><br>
+
+            It's not anything huge,
+            but I really hope you like it. :')
+
+            <br><br>
+
+            And also...
+
+            <br><br>
+
+            <b>I'll always be your knight. 🛡️</b>
+
+            <br><br>
+
+            Thank you for choosing me as your husband,
+            <br>
+            <b>Mrs. Cupcake. 💙</b>
+
+            <br><br>
+
+            — Mambo
+        </div>
+
+    </div>
+
+    <div id="choices">
+        <button onclick="showHamsterPage()">I made this for you →</button>
+    </div>
+
+    <div id="progress">
+        System status: <span id="status">FOR YOU</span>
+    </div>
+
+</div>
+
+<script>
+
+let currentScene = 0;
+function showMainMenu() {
+
+    const text = document.getElementById("text");
+    const emoji = document.getElementById("emoji");
+    const choices = document.getElementById("choices");
+    const status = document.getElementById("status");
+
+    emoji.textContent = "💻";
+
+    text.innerHTML = `
+        Initializing MIMI.EXE...
+    `;
+
+    choices.innerHTML = `
+        <button onclick="startGame()">START</button>
+    `;
+
+    status.textContent = "WAITING";
+}
+
+function showHamsterPage() {
+
+    const text = document.getElementById("text");
+    const emoji = document.getElementById("emoji");
+    const choices = document.getElementById("choices");
+    const status = document.getElementById("status");
+
+    emoji.innerHTML = `
+        <img src="crying_hamster.png"
+             alt="Crying hamster"
+             style="
+                width: 180px;
+                max-width: 70vw;
+                border-radius: 18px;
+                display: block;
+                margin: 0 auto;
+             ">
+    `;
+
+    text.innerHTML = `
+        <b>Sorry again, Cupcake... 😭</b>
+
+        <br><br>
+
+        I can't really explain it properly...
+
+        <br><br>
+
+        But I really hope you understand. :')
+
+        <br><br>
+
+        <b>Please don't bully your knight. 😭🙏</b>
+    `;
+
+    choices.innerHTML = `
+        <button onclick="showMainMenu()">
+    Okay... now open your gift →
+</button>
+    `;
+
+    status.textContent = "SORRY :(";
+}
+
+const scenes = [
+    {
+    emoji: "🌸",
+    text: `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // AREA 01
+        </div>
+
+        <b style="font-size: 1.5rem;">
+            THE BLUE SPIDER LILY
+        </b>
+
+        <br><br>
+
+        You notice a blue spider lily growing quietly
+        in the middle of nowhere.
+
+        <br><br>
+
+        Somehow...
+
+        <br>
+
+        MIMI.EXE immediately knows this is important.
+
+        <br><br>
+
+        <i>"Apparently this is your favorite flower."</i>
+    `,
+    button: "Examine the flower"
+},
+
+    {
+       
+    emoji: "💀",
+    text: `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // AREA 02
+        </div>
+
+        <b style="font-size: 1.5rem;">
+            THE BULLYING DEPARTMENT
+        </b>
+
+        <br><br>
+
+        🚨 <b>WARNING</b> 🚨
+
+        <br><br>
+
+        MIMI.EXE has detected hostile behavior.
+
+        <br><br>
+
+        <i>
+            Subject has once again called the player
+            "gay" and "femboy."
+        </i>
+
+        <br><br>
+
+        Threat level:
+        <b>CHAOTIC</b>
+    `,
+    button: "Deal with Mimi"
+},
+
+    {
+    emoji: "📚",
+    text: `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // AREA 03
+        </div>
+
+        <b style="font-size: 1.5rem;">
+            THE CHAOS LIBRARY
+        </b>
+
+        <br><br>
+
+        You enter a suspiciously quiet library.
+
+        <br><br>
+
+        Books everywhere.
+
+        <br>
+
+        Manhwas everywhere.
+
+        <br><br>
+
+        And somehow...
+
+        <br>
+
+        Mimi is already causing problems.
+
+        <br><br>
+
+        <i>
+            MIMI.EXE has detected an extremely dangerous
+            level of reading material.
+        </i>
+    `,
+    button: "Investigate the chaos"
+},
+
+
+{
+    emoji: "🎧",
+    text: `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // AREA 04
+        </div>
+
+        <b style="font-size: 1.5rem;">
+            THE MUSIC ROOM
+        </b>
+
+        <br><br>
+
+        The chaos suddenly goes quiet.
+
+        <br><br>
+
+        A pair of headphones sits on a table.
+
+        <br><br>
+
+        MIMI.EXE recognizes the music immediately.
+
+        <br><br>
+
+        <i>
+            "Apparently, someone has excellent taste."
+        </i>
+
+        <br><br>
+
+        🎵 Adele detected.
+    `,
+    button: "Listen"
+},
+
+    {
+        emoji: "🔐",
+        text: `
+            <b>TRUST ROOM</b><br><br>
+            This room is different.
+            <br><br>
+            Some things are easy to joke about.
+            Some things aren't.
+            <br><br>
+            And somehow, you ended up trusting each other
+            with things you don't normally tell people.
+        `,
+        button: "Continue"
+    },
+
+     {
+        emoji: `<img src="cat.jpg" alt="Cute movie date cat">`,
+        text: `
+            <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+                MIMI.EXE // BONUS AREA
+            </div>
+
+            <b style="font-size: 1.5rem;">
+                MOVIE DATE?
+            </b>
+
+            <br><br>
+
+            We've survived flowers, bullying, books,
+            and questionable music choices.
+
+            <br><br>
+
+            So I have one completely reasonable question...
+
+            <br><br>
+
+            <b>Wanna have a movie date sometime? 🎬</b>
+
+            <br><br>
+
+            Nothing fancy, just a movie and some time to chill. :D
+
+            <br><br>
+
+            <b>You in? 👀</b>
+        `,
+        button: `<button onclick="continueFromMovie()">Choose your answer 🎬</button>`
+    },
+  
+
+ {
+        emoji: "💗",
+        text: `
+            <b>MIMI.EXE — COMPLETE</b><br><br>
+            Somehow, a completely normal game turned into
+            a collection of random memories.
+            <br><br>
+            From chaotic bullying to ridiculous conversations,
+            you've somehow become ridiculously good friends.
+            <br><br>
+            Thanks for being my cupcake. XD
+            <br><br>
+            Don't get emotional or anything...
+            I'll make fun of you. 😭
+            <br><br>
+            — Mambo
+        `,
+        button: "Finish"
+    }
+];
+
+function startGame() {
+    currentScene = 0;
+    document.getElementById("status").textContent = "RUNNING";
+    showScene();
+}
+
+function showScene() {
+
+    const scene = scenes[currentScene];
+
+    document.getElementById("emoji").innerHTML = scene.emoji;
+const flower = document.getElementById("emoji");
+
+if (currentScene === 0) {
+    flower.classList.add("spider-lily");
+} else {
+    flower.classList.remove("spider-lily");
+}
+    document.getElementById("text").innerHTML = scene.text;
+
+    if (currentScene === 5) {
+    document.getElementById("choices").innerHTML =
+        `<button onclick="nextScene()">Choose your answer 🎬</button>`;
+} else {
+    document.getElementById("choices").innerHTML =
+        `<button onclick="nextScene()">${scene.button}</button>`;
+}
+
+    document.getElementById("progress").innerHTML =
+        `System status: <span id="status">RUNNING</span>
+         <br>Area ${currentScene + 1} / ${scenes.length}`;
+}
+
+function nextScene() {
+
+    // Special interaction for the Blue Spider Lily
+    if (currentScene === 0) {
+
+        const text = document.getElementById("text");
+        const emoji = document.getElementById("emoji");
+        const choices = document.getElementById("choices");
+
+       emoji.innerHTML = `
+    <img src="blue_spider_lily.webp" alt="Blue Spider Lily">
+`;
+
+        text.innerHTML = `
+            <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+                MIMI.EXE // MEMORY FOUND
+            </div>
+
+            You carefully examine the flower.
+
+            <br><br>
+
+            It's quiet.
+
+            <br>
+
+            Almost like it's waiting for someone.
+
+            <br><br>
+
+            <i>
+                ...Someone clearly went out of their way
+                to remember this.
+            </i>
+
+            <br><br>
+
+            <b>🌸 MEMORY DISCOVERED +1</b>
+        `;
+
+        choices.innerHTML =
+            `<button onclick="continueFromFlower()">Continue</button>`;
+
+        return;
+    }
+
+if (currentScene === 1) {
+
+    const text = document.getElementById("text");
+    const emoji = document.getElementById("emoji");
+    const choices = document.getElementById("choices");
+
+    emoji.textContent = "💀";
+
+    text.innerHTML = `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // COUNTERATTACK
+        </div>
+
+        <b>Counterattack initiated.</b>
+
+        <br><br>
+
+        Mimi has been identified as:
+
+        <br><br>
+
+        <span style="font-size: 1.4rem;">
+            💀 Professional Menace 💀
+        </span>
+
+        <br><br>
+
+        <i>
+            Cupcake has been temporarily banned
+            from winning this argument.
+        </i>
+
+        <br><br>
+
+        <b>CHAOS +1</b>
+    `;
+
+    choices.innerHTML =
+        `<button onclick="continueFromBullying()">Continue</button>`;
+
+    return;
+
+}
+if (currentScene === 2) {
+
+    const text = document.getElementById("text");
+    const emoji = document.getElementById("emoji");
+    const choices = document.getElementById("choices");
+
+    emoji.textContent = "📚";
+
+    text.innerHTML = `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // READING DETECTED
+        </div>
+
+        <b>Investigation successful.</b>
+
+        <br><br>
+
+        MIMI.EXE has discovered:
+
+        <br><br>
+
+        📖 <b>Books</b><br>
+        📚 <b>Manhwas</b><br>
+        💀 <b>Way too much chaos</b>
+
+        <br><br>
+
+        <i>
+            Somehow, Mimi has turned a peaceful library
+            into her personal chaos zone.
+        </i>
+
+        <br><br>
+
+        <b>KNOWLEDGE +1</b>
+    `;
+
+    choices.innerHTML =
+        `<button onclick="continueFromLibrary()">Continue</button>`;
+
+    return;
+}
+
+if (currentScene === 3) {
+
+    const text = document.getElementById("text");
+    const emoji = document.getElementById("emoji");
+    const choices = document.getElementById("choices");
+
+   emoji.innerHTML = `
+    <img src="chibi_music.png" alt="Chibi listening to music">
+`;
+
+    text.innerHTML = `
+        <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 12px;">
+            MIMI.EXE // SONG DETECTED
+        </div>
+
+        <b>Music playback initiated.</b>
+
+        <br><br>
+
+        The room becomes strangely peaceful.
+
+        <br><br>
+
+        No chaos.
+
+        <br>
+        No bullying.
+
+        <br>
+        Just music.
+
+        <br><br>
+
+        <i>
+            For approximately 4.7 seconds,
+            Mimi.EXE has achieved peace.
+        </i>
+
+        <br><br>
+
+        🎵 <b>MOOD: UNEXPECTEDLY WHOLESOME</b>
+    `;
+
+    choices.innerHTML =
+        `<button onclick="continueFromMusic()">Continue</button>`;
+
+    return;
+}
+
+if (currentScene === 5) {
+
+    const text = document.getElementById("text");
+    const emoji = document.getElementById("emoji");
+    const choices = document.getElementById("choices");
+
+    emoji.textContent = "🎬";
+
+    text.innerHTML = `
+        <b>Movie date accepted. 🎬</b>
+
+        <br><br>
+
+        Excellent choice. 😌
+
+        <br><br>
+
+        🍿 Snacks<br>
+        🎬 A movie<br>
+        🛋️ Maximum chilling
+
+        <br><br>
+
+        <i>Date status: suspiciously wholesome.</i>
+    `;
+
+    choices.innerHTML = `
+        <button onclick="continueFromMovie()">Continue →</button>
+    `;
+
+    return;
+}
+
+    if (currentScene < scenes.length - 1) {
+        currentScene++;
+        showScene();
+    } else {
+        document.getElementById("status").textContent = "COMPLETE";
+
+        document.getElementById("choices").innerHTML =
+            `<button onclick="startGame()">RUN AGAIN</button>`;
+    }
+}
+
+function continueFromFlower() {
+
+    currentScene = 1;
+    showScene();
+}
+
+function continueFromBullying() {
+    currentScene = 2;
+    showScene();
+}
+
+function continueFromLibrary() {
+    currentScene = 3;
+    showScene();
+}
+
+function continueFromMusic() {
+    currentScene = 4;
+    showScene();
+}
+
+function continueFromMovie() {
+    currentScene = 6;
+    showScene();
+}
+
+</script>
+
+</body>
+</html>
